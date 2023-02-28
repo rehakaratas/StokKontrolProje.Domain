@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+@model List<OrderDetails>
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title">Siparis Detayları</strong>
+                </div>
+                <div class="card-body">
+                    <table id="bootstrap-data-table" class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Ürün Adı</th>
+                                <th>Adeti</th>
+                                <th>Birim Fiyat</th>
+                                <th>Toplam Tutar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                var urunToplamTutar = (item.UnitPrice * item.Quantity).ToString("C2");
+                                <tr>
+                                    <td>@item.Product.ProductName</td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.UnitPrice</td>
+                                    <td>@urunToplamTutar</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    @{
+                        decimal toplamTutar = 0;
+                        foreach (OrderDetails detail in Model)
+                        {
+                            toplamTutar += (detail.Quantity * detail.UnitPrice);
+                        }
+                        <span class="text-end"><strong>TOPLAM TUTAR:</strong> @toplamTutar.ToString("C2") </span>
+                    }
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div><!-- .animated -->
+@section Css{
+    <link rel="stylesheet" href="~/template/assets/css/lib/datatable/dataTables.bootstrap.min.css">
+}
+
+    @section Scripts{
+
+    <!--Data Tables-->
+    <script src="~/template/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="~/template/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="~/template/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="~/template/assets/js/init/datatables-init.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#bootstrap-data-table-export').DataTable();
+        });
+    </script>
+}

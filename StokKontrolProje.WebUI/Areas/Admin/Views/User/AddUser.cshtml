@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "AddUser";
+
+}
+@model User
+<div class="animated fadeIn">
+
+
+    <div class="row">
+        <div class=" offset-3 col-lg-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong class="card-title">Kullanıcı Ekle</strong>
+                </div>
+                <div class="card-body">
+                    <!-- Credit Card -->
+                    <div id="pay-invoice">
+                        <div class="card-body">
+
+                            <hr>
+                            <form asp-area="Admin" asp-controller="User" asp-action="AddUser" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                                <div class="form-group" style="width=%50">
+                                    <label asp-for="PhotoURL" class="control-label mb-1">Kullanıcı Foto</label>
+                                    <input asp-for="PhotoURL" type="file" name="files" class="form-control" data-val-required="Lütfen kullanıcı foto giriniz." aria-required="true" aria-invalid="false">
+                                    <span asp-validation-for="PhotoURL"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="FirstName" class="control-label mb-1">Kullanıcı Adı</label>
+                                    <input asp-for="FirstName" type="text" class="form-control" data-val-required="Lütfen kullanıcı adı giriniz." aria-required="true" aria-invalid="false">
+                                    <span asp-validation-for="FirstName"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="LastName" class="control-label mb-1">Kullanıcı Soyadı</label>
+                                    <input asp-for="LastName" type="text" class="form-control" data-val-required="Lütfen kullanıcı soyadı giriniz." aria-required="true" aria-invalid="false">
+                                    <span asp-validation-for="LastName"></span>
+                                </div>
+                               
+                                <div class="form-group has-success">
+                                    <label asp-for="Address" class="control-label mb-1">Adresi</label>
+                                    <input asp-for="Address" type="text" class="form-control cc-name valid" data-val="true" data-val-required="Lütfen kullanıcı adresi giriniz." aria-required="true" aria-invalid="false">
+                                    <span asp-validation-for="Address"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label asp-for="Email" class="control-label mb-1">Emaili</label>
+                                    <input asp-for="Email" type="text" class="form-control" data-val-required="Lütfen kullanıcı emaili giriniz." aria-required="true" aria-invalid="false" >
+                                    <span asp-validation-for="Email"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label asp-for="Phone" class="control-label mb-1">Telefonu</label>
+                                    <input asp-for="Phone" type="text" class="form-control" data-val-required="Lütfen kullanıcı telefonu giriniz." aria-required="true" aria-invalid="false" >
+                                    <span asp-validation-for="Phone"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label asp-for="Role" class="control-label mb-1">Rolü</label>
+                                    <select asp-for="Role" asp-items="@Html.GetEnumSelectList(typeof(UserRole))" class="form-control" data-val-required="Lütfen rol seçiniz." aria-required="true" aria-invalid="false">
+
+                                        <option value=""> Lütfen Rol Seçiniz...</option>
+
+
+                                    </select>
+
+                                    <span asp-validation-for="Role"></span>
+                                </div>
+                                
+                                <div>
+                                    <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                        <i class="fa fa-plus fa-lg"></i>&nbsp;
+                                        <span id="payment-button-amount">Kullanıcı Ekle</span>
+                                        <span id="payment-button-sending" style="display:none;">Ekleniyor…</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- .card -->
+
+        </div><!--/.col-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+</div><!-- .animated -->
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

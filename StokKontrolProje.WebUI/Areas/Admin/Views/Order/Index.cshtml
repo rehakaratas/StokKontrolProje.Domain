@@ -1,0 +1,149 @@
+﻿@{
+    ViewData["Title"] = "Index";
+
+}
+@model List<Order>
+
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title">Sipariş Listesi</strong>
+                </div>
+                <div class="card-body">
+                    <table id="bootstrap-data-table" class="table table-striped taable-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Sipariş Tarihi</th>
+                                <th>Müşteri</th>
+                                <th>Toplam Tutar</th>
+                                <th>Sipariş Durumu</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (Order item in Model)
+                            {
+                                @if (item.Status == Status.Pending)
+                                {
+                                    <tr>
+                                        <td>@item.AddedDate</td>
+                                        <td>@item.User.FirstName @item.User.LastName</td>
+                                        <td>
+
+                                            @{
+                                                decimal toplamTutar=0;
+                                                foreach (OrderDetails detay in item.OrderDetails)
+                                                {
+                                                    toplamTutar += (detay.Quantity * detay.UnitPrice);
+                                                }
+
+                                                <span> @toplamTutar.ToString("C2")</span>
+                                            }
+                                        </td>
+                                        <td class=" bg-warning text-white">
+
+                                            <span>Bekliyor</span>
+
+
+                                        <td>
+                                            
+                                            <a asp-area="Admin" asp-controller="Order" asp-action="ConfirmOrder" asp-route-id="@item.ID" class="btn btn-success btn-sm">
+                                                <i class="fa fa-check-square-o"></i> Onayla
+                                            </a>
+
+                                            <a asp-area="Admin" asp-controller="Order" asp-action="CancelOrder" asp-route-id="@item.ID" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash-o"></i> Reddet
+                                            </a>
+                                            <a asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-id="@item.ID" class="btn btn-secondary btn-sm"><i class="fa fa-info"></i>&nbsp Details</a>
+                                        </td>
+                                    </tr>
+                                }
+                                else if (item.Status == Status.Confirmed)
+                                {
+                                    <tr>
+                                        <td>@item.AddedDate</td>
+                                        <td>@item.User.FirstName @item.User.LastName</td>
+                                        <td>
+
+                                            @{
+                                                decimal toplamTutar = 0;
+                                                foreach (OrderDetails detay in item.OrderDetails)
+                                                {
+                                                    toplamTutar += (detay.Quantity * detay.UnitPrice);
+                                                }
+
+                                                <span> @toplamTutar.ToString("C2")</span>
+                                            }
+                                        </td>
+                                        <td class=" bg-success text-white">
+
+                                            <span>Onaylandı</span>
+
+
+                                        <td>
+                                            <a asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-id="@item.ID" class="btn btn-secondary btn-sm"><i class="fa fa-info"></i>&nbsp Details</a>
+
+                                        </td>
+                                    </tr>
+                                }
+                                else if (item.Status == Status.Cancelled)
+                                {
+                                    <tr>
+                                        <td>@item.AddedDate</td>
+                                        <td>@item.User.FirstName @item.User.LastName</td>
+                                        <td>
+
+                                            @{
+                                                decimal toplamTutar = 0;
+                                                foreach (OrderDetails detay in item.OrderDetails)
+                                                {
+                                                    toplamTutar += (detay.Quantity * detay.UnitPrice);
+                                                }
+
+                                                <span> @toplamTutar.ToString("C2")</span>
+                                            }
+                                        </td>
+                                        <td class=" bg-danger text-white">
+
+                                            <span>Reddedildi</span>
+
+
+                                        <td>
+                                            <a asp-area="Admin" asp-controller="Order" asp-action="Details" asp-route-id="@item.ID" class="btn btn-secondary btn-sm"><i class="fa fa-info"></i>&nbsp Details</a>
+
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div><!-- .animated -->
+@section Css{
+    <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
+            }
+
+    @section Scripts{
+    <script src="~/Template/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="~/Template/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="~/Template/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="~/Template/assets/js/init/datatables-init.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#bootstrap-data-table-export').DataTable();
+        });
+    </script>
+            }

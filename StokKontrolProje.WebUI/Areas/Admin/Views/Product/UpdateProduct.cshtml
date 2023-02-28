@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "UpdateProduct";
+
+}
+@model Product
+<div class="animated fadeIn">
+
+
+    <div class="row">
+        <div class=" offset-3 col-lg-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <strong class="card-title">Ürün Güncelle</strong>
+                </div>
+                <div class="card-body">
+                    <!-- Credit Card -->
+                    <div id="pay-invoice">
+                        <div class="card-body">
+
+                            <hr>
+                            <form asp-area="Admin" asp-controller="Product" asp-action="UpdateProduct" method="post" novalidate="novalidate">
+
+                                <div class="form-group">
+                                    <label asp-for="ProductName" class="control-label mb-1">Ürün Adı</label>
+                                    <input asp-for="ProductName" type="text" class="form-control" data-val-required="Lütfen ürün adı giriniz." aria-required="true" aria-invalid="false">
+                                    <span asp-validation-for="ProductName"></span>
+                                </div>
+                               
+                                <div class="form-group has-success">
+                                    <label asp-for="UnitPrice" class="control-label mb-1">Birim Fiyatı</label>
+                                    <input asp-for="UnitPrice" type="text" class="form-control cc-name valid" data-val="true" data-val-required="Lütfen birim fiyatı giriniz." aria-required="true" aria-invalid="false">
+                                    <span asp-validation-for="UnitPrice"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Stock" class="control-label mb-1">Stok Adedi</label>
+                                    <input asp-for="Stock" type="text" class="form-control" data-val-required="Lütfen stok adedi giriniz." aria-required="true" aria-invalid="false">
+                                    <span asp-validation-for="Stock"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ExpireDate" class="control-label mb-1">S.K.T</label>
+                                    <input asp-for="ExpireDate" type="date" class="form-control" data-val-required="Lütfen son kullanma tarihi giriniz." aria-required="true" aria-invalid="false">
+                                    <span asp-validation-for="ExpireDate"></span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label asp-for="CategoryID" class="control-label mb-1">Kategori</label>
+                                    <select asp-for="CategoryID" asp-items="@ViewBag.AktifCategories" class="form-control" data-val-required="Lütfen kategori seçiniz." aria-required="true" aria-invalid="false">
+
+                                        <option value=""> Lütfen Kategori Seçiniz...</option>
+
+
+                                    </select>
+
+                                    <span asp-validation-for="CategoryID"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="SupplierID" class="control-label mb-1">Tedarikçi</label>
+                                    <select asp-for="SupplierID" asp-items="@ViewBag.AktifSuppliers" class="form-control" data-val-required="Lütfen tedarikçi seçiniz." aria-required="true" aria-invalid="false">
+
+                                        <option value=""> Lütfen Tedarikçi Seçiniz...</option>
+
+
+                                    </select>
+
+                                    <span asp-validation-for="SupplierID"></span>
+                                </div>
+                                
+                                <div>
+                                    <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                        <i class="fa fa-plus fa-lg"></i>&nbsp;
+                                        <span id="payment-button-amount">Ürün Güncelle</span>
+                                        <span id="payment-button-sending" style="display:none;">Güncelleniyor…</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- .card -->
+
+        </div><!--/.col-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+</div><!-- .animated -->
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

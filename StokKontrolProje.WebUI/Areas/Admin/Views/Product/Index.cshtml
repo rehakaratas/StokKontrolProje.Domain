@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "Index";
+
+}
+@model List<Product>
+
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title">Ürünler Listesi</strong>
+                </div>
+                <div class="card-body">
+                    <table id="bootstrap-data-table" class="table table-striped taable-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Ürün Adı</th>
+                                <th>Birim Fiyatı</th>
+                                <th>Stok Durumu</th>
+                                <th>Kategori</th>
+                                <th>Tedarikçi</th>
+                                <th>Durumu</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (Product item in Model)
+                            {
+                                @if (item.IsActive)
+                                {
+                                    <tr>
+                                        <td>@item.ProductName</td>
+                                        <td>@item.UnitPrice</td>
+                                        <td>@item.Stock</td>
+                                        <td>@item.Category.CategoryName</td>
+                                        <td>@item.Supplier.SupplierName</td>
+                                        <td class=" bg-success text-white">
+
+                                            <span>Aktif</span>
+
+
+                                        <td>
+                                            <a asp-area="Admin" asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@item.ID" class="btn btn-warning btn-sm">
+                                                <i class="fa fa-edit"></i> Güncelle
+                                            </a>
+                                            <a asp-area="Admin" asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@item.ID" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash-o"></i> Sil
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@item.ProductName</td>
+                                        <td>@item.UnitPrice</td>
+                                        <td>@item.Stock</td>
+                                        <td>@item.Category.CategoryName</td>
+                                        <td>@item.Supplier.SupplierName</td>
+                                        <td class="bg-danger text-white">
+
+                                            <span>Pasif</span>
+
+
+                                        <td>
+                                            <a asp-area="Admin" asp-controller="Product" asp-action="UpdateProduct" asp-route-id="@item.ID" class="btn btn-warning btn-sm">
+                                                <i class="fa fa-edit"></i> Güncelle
+                                            </a>
+
+                                            <a asp-area="Admin" asp-controller="Product" asp-action="ActivateProduct" asp-route-id="@item.ID" class="btn btn-success btn-sm">
+                                                <i class="fa fa-check-square-o"></i> Aktif Et
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+
+
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div><!-- .animated -->
+@section Css{
+    <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
+            }
+
+    @section Scripts{
+    <script src="~/Template/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="~/Template/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="~/Template/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="~/Template/assets/js/init/datatables-init.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#bootstrap-data-table-export').DataTable();
+        });
+    </script>
+            }

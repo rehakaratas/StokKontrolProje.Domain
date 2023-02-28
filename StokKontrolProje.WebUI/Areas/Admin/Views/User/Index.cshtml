@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Index";
+
+}
+@model List<User>
+
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title">Kullanicilar Listesi</strong>
+                </div>
+                <div class="card-body">
+                    <table id="bootstrap-data-table" class="table table-striped taable-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Fotoğrafı</th>
+                                <th>Adı Soyadı</th>
+                                <th>Adresi</th>
+                                <th>Telefonu</th>
+                                <th>Emaili</th>
+                                <th>Rolü</th>
+                                <th>Durumu</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (User item in Model)
+                            {
+                                @if (item.IsActive)
+                                {
+                                    <tr>
+                                        <td>
+                                            <img class="user-avatar rounded-circle" src="@item.PhotoURL" alt="User Avatar">
+                                        </td>
+                                        <td>@item.FirstName @item.LastName</td>
+                                        <td>@item.Address</td>
+                                        <td>@item.Phone</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.Role</td>
+                                        <td class=" bg-success text-white">
+
+                                            <span>Aktif</span>
+
+
+                                        <td>
+                                            <a asp-area="Admin" asp-controller="User" asp-action="UpdateUser" asp-route-id="@item.ID" class="btn btn-warning btn-sm">
+                                                <i class="fa fa-edit"></i> Güncelle
+                                            </a>
+                                            <a asp-area="Admin" asp-controller="User" asp-action="DeleteUser" asp-route-id="@item.ID" class="btn btn-danger btn-sm">
+                                                <i class="fa fa-trash-o"></i> Sil
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>
+                                            <img class="user-avatar rounded-circle" src="~/Template/images/admin.jpg" alt="User Avatar">
+                                        </td>
+                                        <td>@item.FirstName @item.LastName</td>
+                                        <td>@item.Address</td>
+                                        <td>@item.Phone</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.Role</td>
+                                        <td class="bg-danger text-white">
+
+                                            <span>Pasif</span>
+
+
+                                        <td>
+                                            <a asp-area="Admin" asp-controller="User" asp-action="UpdateUser" asp-route-id="@item.ID" class="btn btn-warning btn-sm">
+                                                <i class="fa fa-edit"></i> Güncelle
+                                            </a>
+
+                                            <a asp-area="Admin" asp-controller="User" asp-action="ActivateUser" asp-route-id="@item.ID" class="btn btn-success btn-sm">
+                                                <i class="fa fa-check-square-o"></i> Aktif Et
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+
+
+
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div><!-- .animated -->
+@section Css{
+    <link rel="stylesheet" href="assets/css/lib/datatable/dataTables.bootstrap.min.css">
+            }
+
+    @section Scripts{
+    <script src="~/Template/assets/js/lib/data-table/datatables.min.js"></script>
+    <script src="~/Template/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+    <script src="~/Template/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+    <script src="~/Template/assets/js/init/datatables-init.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#bootstrap-data-table-export').DataTable();
+        });
+    </script>
+            }
